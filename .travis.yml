@@ -18,7 +18,7 @@ after_success:
 
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
 
-  - docker push sarangkartikey50/mulit-client
-  - docker push sarangkartikey50/mulit-nginx
-  - docker push sarangkartikey50/mulit-worker
-  - docker push sarangkartikey50/mulit-server
+  - docker push sarangkartikey50/multi-client
+  - docker push sarangkartikey50/multi-nginx
+  - docker push sarangkartikey50/multi-worker
+  - docker push sarangkartikey50/multi-server
