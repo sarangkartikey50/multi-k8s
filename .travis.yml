@@ -1,0 +1,24 @@
+os: linux
+dist: xenial
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t sarangkartikey50/client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true sarangkartikey50/client-test yarn test -- --coverage
+
+after_success:
+  - docker build -t sarangkartikey50/multi-client ./client
+  - docker build -t sarangkartikey50/multi-nginx ./nginx
+  - docker build -t sarangkartikey50/multi-worker ./worker
+  - docker build -t sarangkartikey50/multi-server ./server
+
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
+
+  - docker push sarangkartikey50/mulit-client
+  - docker push sarangkartikey50/mulit-nginx
+  - docker push sarangkartikey50/mulit-worker
+  - docker push sarangkartikey50/mulit-server
